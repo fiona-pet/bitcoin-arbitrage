@@ -29,11 +29,13 @@ from arbitrage.public_markets.market import Market
 #     }
 #   ]
 # }
+import ssl
 class BitFlyer(Market):
     def __init__(self, currency, code):
         super().__init__(currency)
         self.code = code
         self.update_rate = 20
+        ssl._create_default_https_context = ssl._create_unverified_context
 
     def update_depth(self):
         res = urllib.request.urlopen("https://api.bitflyer.com/v1/board?product_code=" + self.code)

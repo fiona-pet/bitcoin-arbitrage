@@ -5,12 +5,14 @@ import sys
 import xml.sax
 import logging
 import time
+import ssl
 
 
 class XmlHandler(xml.sax.ContentHandler):
     def __init__(self):
         self.currentTag = ""
         self.rates = {}
+        ssl._create_default_https_context = ssl._create_unverified_context
 
     def startElement(self, tag, attributes):
         if "currency" in attributes and "rate" in attributes:
